@@ -197,30 +197,25 @@ public class EggCatcherEntityListener implements Listener {
 
             if (this.useVaultCost && !freeCatch) {
                 vaultCost = config.getDouble("VaultCost." + eggType.getFriendlyName());
-                if (!EggCatcher.economy.has(player.getName(), vaultCost)) {
+                if (EggCatcher.economy.getBalance(player) < vaultCost) {
                     player.sendMessage(String.format(config.getString("Messages.VaultFail"), vaultCost));
                     if (!this.looseEggOnFail) {
                         player.getInventory().addItem(new ItemStack(Material.EGG, 1));
                         EggCatcher.eggs.add(egg);
                     }
                     return;
-                } else {
-                    EggCatcher.economy.withdrawPlayer(player.getName(), vaultCost);
-
-                    if (!this.vaultTargetBankAccount.isEmpty()) {
-                        EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
-                    }
-
-                    player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
-                }
+                } 
+                // Asgarioth: Check but don't withdraw / avoid withdrawal although useItemCost fails
             }
 
             if (this.useItemCost && !freeCatch) {
+            	Material itemMaterial = Material.getMaterial(config.getString("ItemCost.ItemMaterial"));
                 int itemId = config.getInt("ItemCost.ItemId", 266);
                 int itemData = config.getInt("ItemCost.ItemData", 0);
                 int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                @SuppressWarnings("deprecation")
-				ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                //@SuppressWarnings("deprecation")
+                ItemStack itemStack = new ItemStack(itemMaterial, itemAmount, (short) itemData);
+				//ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
                 if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
                     player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
                             String.valueOf(itemAmount)));
@@ -235,6 +230,18 @@ public class EggCatcherEntityListener implements Listener {
                     return;
                 }
             }
+            
+            // Withdraw VaultCosts after possible itemCosts have been evaluated
+            if (this.useVaultCost && !freeCatch) {
+              EggCatcher.economy.withdrawPlayer(player, vaultCost);
+
+              if (!this.vaultTargetBankAccount.isEmpty()) {
+                  EggCatcher.economy.bankDeposit(this.vaultTargetBankAccount, vaultCost);
+              }
+
+              player.sendMessage(String.format(config.getString("Messages.VaultSuccess"), vaultCost));
+            }
+            
         } else {
             // Dispenser
             if (!this.nonPlayerCatching) {
@@ -258,7 +265,7 @@ public class EggCatcherEntityListener implements Listener {
 
         ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
 
-        eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().getName());
+        eggStack = NbtReflection.setNewEntityTag(eggStack, entity.getType().name());
 
         String customName = ((LivingEntity) entity).getCustomName();
 
@@ -275,8 +282,8 @@ public class EggCatcherEntityListener implements Listener {
             }
         }
 
-        if(entity instanceof Horse) {
-            if(((Horse) entity).isCarryingChest()){
+        if(entity instanceof ChestedHorse) {
+            if(((ChestedHorse) entity).isCarryingChest()){
                 entity.getWorld().dropItemNaturally(entity.getLocation(), new ItemStack(Material.CHEST));
             }
         }
@@ -295,10 +302,8 @@ public class EggCatcherEntityListener implements Listener {
 
         entity.getWorld().dropItem(entity.getLocation(), eggStack);
 
-        if (!this.spawnChickenOnSuccess) {
-            if (!EggCatcher.eggs.contains(egg)) {
-                EggCatcher.eggs.add(egg);
-            }
-        }
+        if (this.spawnChickenOnSuccess) return; 
+        if (EggCatcher.eggs.contains(egg)) return; 
+        EggCatcher.eggs.add(egg);        
     }
 }

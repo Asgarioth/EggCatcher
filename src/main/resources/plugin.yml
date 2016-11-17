@@ -1,5 +1,5 @@
 name: EggCatcher
-version: 2.6
+version: ${project.version}
 description: This plugin allows you to catch mobs in eggs.
 author: shansen
 

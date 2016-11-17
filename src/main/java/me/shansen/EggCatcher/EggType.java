@@ -49,7 +49,20 @@ public enum EggType {
     ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
-    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear");
+    POLA_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
+    IRON_GOLEM(EntityType.IRON_GOLEM, 99, "IronGolem"),
+    SKELETON_HORSE(EntityType.SKELETON_HORSE,28,"SkeletonHorse"),
+    DONKEY(EntityType.DONKEY,31,"Donkey"),
+    MULE(EntityType.MULE,32,"Mule"),
+    ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE,29,"ZombieHorse"),
+    VEX(EntityType.VEX,35,"Vex"),
+    EVOKER(EntityType.EVOKER,36,"Evoker"),
+    VINDICATOR(EntityType.VINDICATOR,36,"Vindicator"),
+    LLAMA(EntityType.LLAMA,103,"Llama"),
+    HUSK(EntityType.HUSK,23,"Husk"),
+    STRAY(EntityType.STRAY,6,"Stray"),
+    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN,4,"ElderGuardian")
+    ;
 
 
 
