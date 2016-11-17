@@ -38,6 +38,19 @@ permissions:
             eggcatcher.catch.guardian: true
             eggcatcher.catch.rabbit: true
             eggcatcher.catch.polarbear: true
+            eggcatcher.catch.irongolem: true
+            eggcatcher.catch.skeletonhorse: true
+            eggcatcher.catch.donkey: true
+            eggcatcher.catch.mule: true
+            eggcatcher.catch.zombiehorse: true
+            eggcatcher.catch.vex: true
+            eggcatcher.catch.evoker: true
+            eggcatcher.catch.vindicator: true
+            eggcatcher.catch.llama: true
+            eggcatcher.catch.husk: true
+            eggcatcher.catch.stray: true
+            eggcatcher.catch.elderguardian: true
+            
     eggcatcher.free:
         description: Makes catching a mob free.
         default: false
