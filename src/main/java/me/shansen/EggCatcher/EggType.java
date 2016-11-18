@@ -61,7 +61,8 @@ public enum EggType {
     LLAMA(EntityType.LLAMA,103,"Llama"),
     HUSK(EntityType.HUSK,23,"Husk"),
     STRAY(EntityType.STRAY,6,"Stray"),
-    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN,4,"ElderGuardian")
+    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN,4,"ElderGuardian"),
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER,27,"ZombieVillager")
     ;
 
 
@@ -106,6 +107,10 @@ public enum EggType {
             if(entity.getType() == EntityType.HUSK && !(eggType.getCreatureType() == EntityType.HUSK)) {
             	continue;
             }
+            // Skip, if eggType is zombie but mob is a husk
+            if(entity.getType() == EntityType.ZOMBIE_VILLAGER && !(eggType.getCreatureType() == EntityType.ZOMBIE_VILLAGER)) {
+            	continue;
+            }            
             return eggType;
         }
         return null;

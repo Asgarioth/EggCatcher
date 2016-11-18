@@ -55,6 +55,7 @@ CatchChance:
   Husk: 100.0
   Stray: 100.0
   ElderGuardian: 100.0
+  ZombieVillager: 100.0
 VaultCost:
   Pig: 0.0
   Sheep: 0.0
@@ -96,6 +97,7 @@ VaultCost:
   Husk: 0.0
   Stray: 0.0
   ElderGuardian: 0.0
+  ZombieVillager: 0.0
 ItemCost:
   ItemId: 371
   ItemMaterial: gold_nugget
@@ -140,7 +142,8 @@ ItemCost:
     Llama: 0
     Husk: 0
     Stray: 0
-    ElderGuardian: 0  
+    ElderGuardian: 0
+    ZombieVillager: 0
 HealthPercentage:
   Pig: 100.0
   Sheep: 100.0
@@ -181,7 +184,8 @@ HealthPercentage:
   Llama: 100.0
   Husk: 100.0
   Stray: 100.0
-  ElderGuardian: 100.0  
+  ElderGuardian: 100.0
+  ZombieVillager: 100.0  
 Messages:
   PermissionFail: "You do not have permission to catch this mob!"
   VaultFail: "It costs %s dollars to catch this mob!"

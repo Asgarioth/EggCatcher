@@ -18,11 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package me.shansen.EggCatcher.listeners;
 
+import java.util.logging.Level;
+
 import me.shansen.EggCatcher.EggCatcher;
 import me.shansen.EggCatcher.EggType;
 import me.shansen.EggCatcher.events.EggCaptureEvent;
-
 import me.shansen.nbt.NbtReflection;
+
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -58,6 +60,7 @@ public class EggCatcherEntityListener implements Listener {
     private final boolean spawnChickenOnFail;
     private final boolean spawnChickenOnSuccess;
     private final boolean deleteVillagerInventoryOnCatch;
+    private boolean invalidItemMaterial;
     FileConfiguration config;
     JavaPlugin plugin;
 
@@ -83,6 +86,7 @@ public class EggCatcherEntityListener implements Listener {
         this.spawnChickenOnSuccess = this.config.getBoolean("SpawnChickenOnSuccess", false);
         this.vaultTargetBankAccount = this.config.getString("VaultTargetBankAccount", "");
         this.deleteVillagerInventoryOnCatch = this.config.getBoolean("DeleteVillagerInventoryOnCatch", false);
+        this.invalidItemMaterial = false;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -209,26 +213,34 @@ public class EggCatcherEntityListener implements Listener {
             }
 
             if (this.useItemCost && !freeCatch) {
-            	Material itemMaterial = Material.getMaterial(config.getString("ItemCost.ItemMaterial"));
-                int itemId = config.getInt("ItemCost.ItemId", 266);
-                int itemData = config.getInt("ItemCost.ItemData", 0);
-                int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
-                //@SuppressWarnings("deprecation")
-                ItemStack itemStack = new ItemStack(itemMaterial, itemAmount, (short) itemData);
-				//ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
-                if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
-                            String.valueOf(itemAmount)));
-                    player.getInventory().removeItem(itemStack);
-                } else {
-                    player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
-                            String.valueOf(itemAmount)));
-                    if (!this.looseEggOnFail) {
-                        player.getInventory().addItem(new ItemStack(Material.EGG, 1));
-                        EggCatcher.eggs.add(egg);
-                    }
-                    return;
-                }
+            	Material itemMaterial = Material.getMaterial(config.getString("ItemCost.ItemMaterial").toUpperCase());
+            	
+            	if(itemMaterial == null) {
+            		plugin.getServer().getLogger().log(Level.WARNING, "[EggCatcher] ItemCost.ItemMaterial is invalid.");
+            		plugin.getServer().getLogger().log(Level.WARNING, "[EggCatcher] Skipping useItemCost.");
+            		invalidItemMaterial = true;
+            	}
+            	else {
+                    int itemId = config.getInt("ItemCost.ItemId", 266);
+                    int itemData = config.getInt("ItemCost.ItemData", 0);
+                    int itemAmount = config.getInt("ItemCost.Amount." + eggType.getFriendlyName(), 0);
+                    //@SuppressWarnings("deprecation")
+                    ItemStack itemStack = new ItemStack(itemMaterial, itemAmount, (short) itemData);
+    				//ItemStack itemStack = new ItemStack(itemId, itemAmount, (short) itemData);
+                    if (player.getInventory().containsAtLeast(itemStack, itemStack.getAmount())) {
+                        player.sendMessage(String.format(config.getString("Messages.ItemCostSuccess"),
+                                String.valueOf(itemAmount)));
+                        player.getInventory().removeItem(itemStack);
+                    } else {
+                        player.sendMessage(String.format(config.getString("Messages.ItemCostFail"),
+                                String.valueOf(itemAmount)));
+                        if (!this.looseEggOnFail) {
+                            player.getInventory().addItem(new ItemStack(Material.EGG, 1));
+                            EggCatcher.eggs.add(egg);
+                        }
+                        return;
+                    }            		
+            	}
             }
             
             // Withdraw VaultCosts after possible itemCosts have been evaluated
