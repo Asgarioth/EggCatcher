@@ -56,7 +56,7 @@ public enum EggType {
     MULE(EntityType.MULE,32,"Mule"),
     ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE,29,"ZombieHorse"),
     VEX(EntityType.VEX,35,"Vex"),
-    EVOKER(EntityType.EVOKER,36,"Evoker"),
+    EVOKER(EntityType.EVOKER,34,"Evoker"),
     VINDICATOR(EntityType.VINDICATOR,36,"Vindicator"),
     LLAMA(EntityType.LLAMA,103,"Llama"),
     HUSK(EntityType.HUSK,23,"Husk"),
@@ -89,9 +89,22 @@ public enum EggType {
     }
 
     public static EggType getEggType(Entity entity) {
+    	
         for (EggType eggType : EggType.values()) {
             if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
                 continue;
+            }
+            // Skip, if eggType is skeleton but mob is a stray
+            if(entity.getType() == EntityType.ELDER_GUARDIAN && !(eggType.getCreatureType() == EntityType.ELDER_GUARDIAN)) {
+            	continue;
+            }            
+            // Skip, if eggType is skeleton but mob is a stray
+            if(entity.getType() == EntityType.STRAY && !(eggType.getCreatureType() == EntityType.STRAY)) {
+            	continue;
+            }
+            // Skip, if eggType is zombie but mob is a husk
+            if(entity.getType() == EntityType.HUSK && !(eggType.getCreatureType() == EntityType.HUSK)) {
+            	continue;
             }
             return eggType;
         }

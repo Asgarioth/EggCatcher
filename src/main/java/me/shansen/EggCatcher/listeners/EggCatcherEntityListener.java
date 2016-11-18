@@ -104,7 +104,6 @@ public class EggCatcherEntityListener implements Listener {
         }
 
         egg = (Egg) damageEvent.getDamager();
-        //TODO: Handle variants!
         eggType = EggType.getEggType(entity);
 
         if (eggType == null) {
@@ -263,10 +262,10 @@ public class EggCatcherEntityListener implements Listener {
         if (this.smokeEffect) {
             entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 0);
         }
-
+        
         ItemStack eggStack = new ItemStack(Material.MONSTER_EGG, 1, eggType.getCreatureId());
         
-        eggStack = NbtReflection.setNewEntityTag(eggStack, "minecraft:"+entity.getType().name().toLowerCase());
+        eggStack = NbtReflection.setNewEntityTag(eggStack, "minecraft:"+entity.getType().getName().toLowerCase());
 
         String customName = ((LivingEntity) entity).getCustomName();
 
