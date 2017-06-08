@@ -64,7 +64,59 @@ public class EggCatcher extends JavaPlugin {
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion == 2.6) {
+        if (configVersion == 2.7) {
+            this.saveConfig();
+        } else if (configVersion == 2.6) {
+        	this.getConfig().set("ItemCost.ItemMaterial", "gold_nugget");
+            this.getConfig().set("CatchChance.IronGolem", 100.0);
+            this.getConfig().set("VaultCost.IronGolem", 0);
+            this.getConfig().set("ItemCost.Amount.IronGolem", 0);
+            this.getConfig().set("HealthPercentage.IronGolem", 100.0);
+            this.getConfig().set("CatchChance.SkeletonHorse", 100.0);
+            this.getConfig().set("VaultCost.SkeletonHorse", 0);
+            this.getConfig().set("ItemCost.Amount.SkeletonHorse", 0);
+            this.getConfig().set("HealthPercentage.SkeletonHorse", 100.0);
+            this.getConfig().set("CatchChance.Donkey", 100.0);
+            this.getConfig().set("VaultCost.Donkey", 0);
+            this.getConfig().set("ItemCost.Amount.Donkey", 0);
+            this.getConfig().set("HealthPercentage.Donkey", 100.0); 
+            this.getConfig().set("CatchChance.Mule", 100.0);
+            this.getConfig().set("VaultCost.Mule", 0);
+            this.getConfig().set("ItemCost.Amount.Mule", 0);
+            this.getConfig().set("HealthPercentage.Mule", 100.0);
+            this.getConfig().set("CatchChance.ZombieHorse", 100.0);
+            this.getConfig().set("VaultCost.ZombieHorse", 0);
+            this.getConfig().set("ItemCost.Amount.ZombieHorse", 0);
+            this.getConfig().set("HealthPercentage.ZombieHorse", 100.0);
+            this.getConfig().set("CatchChance.Vex", 100.0);
+            this.getConfig().set("VaultCost.Vex", 0);
+            this.getConfig().set("ItemCost.Amount.Vex", 0);
+            this.getConfig().set("HealthPercentage.Vex", 100.0);
+            this.getConfig().set("CatchChance.Evoker", 100.0);
+            this.getConfig().set("VaultCost.Evoker", 0);
+            this.getConfig().set("ItemCost.Amount.Evoker", 0);
+            this.getConfig().set("HealthPercentage.Evoker", 100.0);
+            this.getConfig().set("CatchChance.Vindicator", 100.0);
+            this.getConfig().set("VaultCost.Vindicator", 0);
+            this.getConfig().set("ItemCost.Amount.Vindicator", 0);
+            this.getConfig().set("HealthPercentage.Vindicator", 100.0);
+            this.getConfig().set("CatchChance.Llama", 100.0);
+            this.getConfig().set("VaultCost.Llama", 0);
+            this.getConfig().set("ItemCost.Amount.Llama", 0);
+            this.getConfig().set("HealthPercentage.Llama", 100.0);   
+            this.getConfig().set("CatchChance.Husk", 100.0);
+            this.getConfig().set("VaultCost.Husk", 0);
+            this.getConfig().set("ItemCost.Amount.Husk", 0);
+            this.getConfig().set("HealthPercentage.Husk", 100.0); 
+            this.getConfig().set("CatchChance.Stray", 100.0);
+            this.getConfig().set("VaultCost.Stray", 0);
+            this.getConfig().set("ItemCost.Amount.Stray", 0);
+            this.getConfig().set("HealthPercentage.Stray", 100.0);   
+            this.getConfig().set("CatchChance.ElderGuardian", 100.0);
+            this.getConfig().set("VaultCost.ElderGuardian", 0);
+            this.getConfig().set("ItemCost.Amount.ElderGuardian", 0);
+            this.getConfig().set("HealthPercentage.ElderGuardian", 100.0);              
+            this.getConfig().set("ConfigVersion", 2.7);
             this.saveConfig();
         } else if (configVersion == 2.5) {
             this.getConfig().set("CatchChance.PolarBear", 100.0);

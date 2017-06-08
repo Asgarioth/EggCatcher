@@ -18,6 +18,9 @@ public class NbtReflection {
             Object nbtEntityTag = Class.forName("net.minecraft.server." + version + ".NBTTagCompound").newInstance();
 
             nbtEntityTag.getClass().getMethod("setString", String.class, String.class).invoke(nbtEntityTag, "id", entityType);
+            if(entityType.equalsIgnoreCase("minecraft:skeleton_horse") || entityType.equalsIgnoreCase("minecraft:zombie_horse")) {
+            	nbtEntityTag.getClass().getMethod("setBoolean", String.class, boolean.class).invoke(nbtEntityTag, "Tame", true);	
+            }
             rootTag.getClass().getMethod("set", String.class, rootTag.getClass().getSuperclass())
                     .invoke(rootTag, "EntityTag", nbtEntityTag);
 

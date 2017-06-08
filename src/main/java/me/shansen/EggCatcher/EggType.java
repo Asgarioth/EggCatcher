@@ -49,7 +49,21 @@ public enum EggType {
     ENDERMITE(EntityType.ENDERMITE, 67, "Endermite"),
     GUARDIAN(EntityType.GUARDIAN, 68, "Guardian"),
     RABBIT(EntityType.RABBIT, 101, "Rabbit"),
-    POLAR_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear");
+    POLA_BEAR(EntityType.POLAR_BEAR, 102, "PolarBear"),
+    IRON_GOLEM(EntityType.IRON_GOLEM, 99, "IronGolem"),
+    SKELETON_HORSE(EntityType.SKELETON_HORSE,28,"SkeletonHorse"),
+    DONKEY(EntityType.DONKEY,31,"Donkey"),
+    MULE(EntityType.MULE,32,"Mule"),
+    ZOMBIE_HORSE(EntityType.ZOMBIE_HORSE,29,"ZombieHorse"),
+    VEX(EntityType.VEX,35,"Vex"),
+    EVOKER(EntityType.EVOKER,34,"Evoker"),
+    VINDICATOR(EntityType.VINDICATOR,36,"Vindicator"),
+    LLAMA(EntityType.LLAMA,103,"Llama"),
+    HUSK(EntityType.HUSK,23,"Husk"),
+    STRAY(EntityType.STRAY,6,"Stray"),
+    ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN,4,"ElderGuardian"),
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER,27,"ZombieVillager")
+    ;
 
 
 
@@ -76,10 +90,27 @@ public enum EggType {
     }
 
     public static EggType getEggType(Entity entity) {
+    	
         for (EggType eggType : EggType.values()) {
             if (!eggType.getCreatureType().getEntityClass().isInstance(entity)) {
                 continue;
             }
+            // Skip, if eggType is skeleton but mob is a stray
+            if(entity.getType() == EntityType.ELDER_GUARDIAN && !(eggType.getCreatureType() == EntityType.ELDER_GUARDIAN)) {
+            	continue;
+            }            
+            // Skip, if eggType is skeleton but mob is a stray
+            if(entity.getType() == EntityType.STRAY && !(eggType.getCreatureType() == EntityType.STRAY)) {
+            	continue;
+            }
+            // Skip, if eggType is zombie but mob is a husk
+            if(entity.getType() == EntityType.HUSK && !(eggType.getCreatureType() == EntityType.HUSK)) {
+            	continue;
+            }
+            // Skip, if eggType is zombie but mob is a husk
+            if(entity.getType() == EntityType.ZOMBIE_VILLAGER && !(eggType.getCreatureType() == EntityType.ZOMBIE_VILLAGER)) {
+            	continue;
+            }            
             return eggType;
         }
         return null;
