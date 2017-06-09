@@ -50,6 +50,7 @@ permissions:
             eggcatcher.catch.husk: true
             eggcatcher.catch.stray: true
             eggcatcher.catch.elderguardian: true
+            eggcatcher.catch.parrot: true
             
     eggcatcher.free:
         description: Makes catching a mob free.

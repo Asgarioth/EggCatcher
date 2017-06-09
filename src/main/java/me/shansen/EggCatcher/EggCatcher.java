@@ -25,8 +25,6 @@ import org.bukkit.entity.Egg;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,18 +53,22 @@ public class EggCatcher extends JavaPlugin {
                 economy = economyProvider.getProvider();
             }
         }
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-        }
     }
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
-        if (configVersion == 2.7) {
+        if (configVersion == 2.8) {
             this.saveConfig();
-        } else if (configVersion == 2.6) {
+        }
+        else if (configVersion == 2.7){
+            this.getConfig().set("CatchChance.Parrot", 100.0);
+            this.getConfig().set("VaultCost.Parrot", 0);
+            this.getConfig().set("ItemCost.Amount.Parrot", 0);
+            this.getConfig().set("HealthPercentage.Parrot", 100.0);
+            this.getConfig().set("ConfigVersion", 2.8);
+        }
+        	else if (configVersion == 2.6) {
+        
         	this.getConfig().set("ItemCost.ItemMaterial", "gold_nugget");
             this.getConfig().set("CatchChance.IronGolem", 100.0);
             this.getConfig().set("VaultCost.IronGolem", 0);

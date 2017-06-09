@@ -62,10 +62,11 @@ public enum EggType {
     HUSK(EntityType.HUSK,23,"Husk"),
     STRAY(EntityType.STRAY,6,"Stray"),
     ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN,4,"ElderGuardian"),
-    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER,27,"ZombieVillager")
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER,27,"ZombieVillager"),
+    PARROT(EntityType.PARROT,105,"Parrot")
     ;
 
-
+    
 
     private final EntityType entityType;
     private final Integer creatureId;
