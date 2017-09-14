@@ -57,6 +57,7 @@ public class EggCatcher extends JavaPlugin {
 
     public void CheckConfigurationFile() {
         double configVersion = this.getConfig().getDouble("ConfigVersion", 0.0);
+        System.out.println("Config Version is: " + configVersion);
         if (configVersion == 2.8) {
             this.saveConfig();
         }
@@ -66,6 +67,7 @@ public class EggCatcher extends JavaPlugin {
             this.getConfig().set("ItemCost.Amount.Parrot", 0);
             this.getConfig().set("HealthPercentage.Parrot", 100.0);
             this.getConfig().set("ConfigVersion", 2.8);
+            this.saveConfig();
         }
         	else if (configVersion == 2.6) {
         
